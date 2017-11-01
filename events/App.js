@@ -8,7 +8,7 @@ import RegisterScreen from './screens/RegisterScreen';
 // import SaveScreen from './screens/SaveScreen';
 // import UsersScreen from './screens/UsersScreen';
 import CreateEventScreen from './screens/CreateEventScreen';
-// import MyProfileScreen from './screens/MyProfileScreen';
+import MyProfileScreen from './screens/MyProfileScreen';
 
 // const domain = "https://something-horizons.herokuapp.com";
 //const domain = "https://hohoho-backend.herokuapp.com"; // Old Server
@@ -43,10 +43,10 @@ export default StackNavigator({
   Create: {
     screen: CreateEventScreen,
   },
-  // MyProfile: {
-  //   screen: MyProfileScreen,
-  // },
+  MyProfile: {
+    screen: MyProfileScreen,
+  },
 }, {
-  initialRouteName: 'Login',
+  initialRouteName: 'MyProfile',
   headerMode: 'screen'
 });
