@@ -47,10 +47,6 @@ class RegisterScreen extends React.Component {
     // Remove event listener
     Linking.removeEventListener('url', this.handleOpenURL);
   }
-  random test() {
-    // Remove event listener
-    console.log('random test')
-  }
   handleOpenURL = ({ url }) => {
     // Extract stringified user string out of the URL
     const [, user_string] = url.match(/user=([^#]+)/);

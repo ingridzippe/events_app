@@ -176,19 +176,19 @@ userSchema.methods.getTweets = function (callback){
     }
   }
 }
-
-tweetSchema.methods.numLikes = function (tweetId, callback){
-
-}
+//
+// tweetSchema.methods.numLikes = function (tweetId, callback){
+//
+// }
 
 var User = mongoose.model('User', userSchema);
-var Tweet = mongoose.model('Tweet', tweetSchema);
+var Pin = mongoose.model('Pin', pinSchema);
 var Event = mongoose.model('Event', eventSchema);
 var Follow = mongoose.model('Follow', followsSchema);
 
 module.exports = {
   User: User,
-  Tweet: Tweet,
+  Pin: Pin,
   Event: Event,
   Follow: Follow
 };
