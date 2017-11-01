@@ -1,9 +1,8 @@
 // import React from 'react';
 import { StackNavigator } from 'react-navigation';
 import BottomBarNav from './components/BottomBarNav';
-// import HomeScreen from './screens/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
-// import MessagesScreen from './screens/MessagesScreen';
+import MessagesScreen from './screens/MessagesScreen';
 import RegisterScreen from './screens/RegisterScreen';
 // import SaveScreen from './screens/SaveScreen';
 // import UsersScreen from './screens/UsersScreen';
@@ -31,11 +30,11 @@ export default StackNavigator({
   Login: {
     screen: LoginScreen,
   },
+  Messages: {
+    screen: MessagesScreen,
+  },
   // Users: {
   //   screen: UsersScreen,
-  // },
-  // Messages: {
-  //   screen: MessagesScreen,
   // },
   // Save: {
   //   screen: SaveScreen,
@@ -47,6 +46,6 @@ export default StackNavigator({
     screen: MyProfileScreen,
   },
 }, {
-  initialRouteName: 'Create',
+  initialRouteName: 'Messages',
   headerMode: 'screen'
 });
