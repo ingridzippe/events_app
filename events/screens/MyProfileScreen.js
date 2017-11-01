@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   ListView,
 } from 'react-native';
+import BottomBarNav from '../components/BottomBarNav';
 // import BottomBar from '../components/BottomBar';
 import styles from '../styles/styles';
 // import { StackNavigator } from 'react-navigation';
@@ -83,7 +84,7 @@ class MyProfileScreen extends React.Component {
             </TouchableOpacity>
           }
         />
-        {/* <BottomBar navigation={this.props.navigation} /> */}
+        <BottomBarNav navigation={this.props.navigation} />
       </View>
     );
   }

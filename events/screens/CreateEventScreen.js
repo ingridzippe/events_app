@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
+import BottomBarNav from '../components/BottomBarNav';
 // import ImagePicker from 'react-native-image-crop-picker';
 import styles from '../styles/styles';
 // import { StackNavigator } from 'react-navigation';
@@ -100,6 +101,7 @@ class CreateEventScreen extends React.Component {
           >
             <Text style={styles.buttonLabel}>Post Your Event</Text>
           </TouchableOpacity>
+          <BottomBarNav navigation={this.props.navigation} />
         </View>
     );
   }

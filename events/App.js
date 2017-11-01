@@ -16,12 +16,12 @@ import MyProfileScreen from './screens/MyProfileScreen';
 // here some changes
 //Navigator
 export default StackNavigator({
-  // BottomBarNav: {
-  //   screen: BottomBarNav,
-  //   navigationOptions: {
-  //     title: 'BottomBar',
-  //   },
-  // },
+  BottomBarNav: {
+    screen: BottomBarNav,
+    navigationOptions: {
+      title: 'BottomBar',
+    },
+  },
   // Home: {
   //   screen: HomeScreen,
   // },
@@ -47,6 +47,6 @@ export default StackNavigator({
     screen: MyProfileScreen,
   },
 }, {
-  initialRouteName: 'MyProfile',
+  initialRouteName: 'Create',
   headerMode: 'screen'
 });
