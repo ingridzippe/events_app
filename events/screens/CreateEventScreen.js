@@ -4,8 +4,12 @@ import {
   Text,
   TouchableOpacity,
   TextInput,
+  Modal,
+  Button,
+  // DatePickerIOS,
 } from 'react-native';
 import BottomBarNav from '../components/BottomBarNav';
+import DatePicker from '../components/DatePicker';
 // import ImagePicker from 'react-native-image-crop-picker';
 import styles from '../styles/styles';
 // import { StackNavigator } from 'react-navigation';
@@ -14,9 +18,19 @@ import styles from '../styles/styles';
 
 // var ImagePicker = require('react-native-image-crop-picker');
 
+// DATE PICKER CODE STARTS HERE
+
+// DATE PICKER CODE ENDS HERE
+
+var defaultProps = {
+    date: new Date(),
+    timeZoneOffsetInHours: (-1) * (new Date()).getTimezoneOffset() / 60,
+};
+
 class CreateEventScreen extends React.Component {
   static navigationOptions = {
-    title: 'CreateEvent'
+    title: 'Prototype',
+    headerLeft: null
   };
   constructor(props) {
     super(props);
@@ -25,8 +39,17 @@ class CreateEventScreen extends React.Component {
         displayName: '',
         eventDate: '',
         eventLocation: '',
-        eventDescription: ''
+        eventDescription: '',
+        date: this.props.date,
+        timeZoneOffsetInHours: this.props.timeZoneOffsetInHours,
+        modalVisible: false,
     };
+  }
+  setModalVisible(visible) {
+    this.setState({modalVisible: true});
+  }
+  closeModal(visible) {
+    this.setState({modalVisible: false});
   }
   postCreateEvent() {
   console.log('creating event');
@@ -52,7 +75,7 @@ class CreateEventScreen extends React.Component {
       if (responseJson.success === true) {
         console.log('RESPONSE EVENT');
       } else {
-        alert('invalid');
+        console.log('event did not save')
       }
       console.log(responseJson);
     })
@@ -70,6 +93,9 @@ class CreateEventScreen extends React.Component {
     //     console.log(image);
     //   });
   }
+  onDateChange() {
+    this.setState({ date: this.state.date });
+  }
   render() {
     return (
         <View style={styles.container}>
@@ -80,11 +106,38 @@ class CreateEventScreen extends React.Component {
           >
             <Text style={styles.buttonLabel}>Upload an Image</Text>
           </TouchableOpacity>
-          <TextInput
-            style={styles.input}
-            placeholder='When is it?'
-            onChangeText={(text) => this.setState({ eventDate: text })}
-          />
+          {/* <DatePickerIOS
+            date={this.state.date}
+            mode="time"
+            timeZoneOffsetInMinutes={this.state.timeZoneOffsetInHours * 60}
+            onDateChange={this.onDateChange.bind(this)}
+            minuteInterval={10}
+          /> */}
+
+          <Modal
+            transparent={false}
+            visible={this.state.modalVisible}
+          >
+            <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
+              <View style={{justifyContent: 'center', width: 300, height: 600}}>
+                <DatePicker
+                  events={this.props.events}
+                />
+                <Button
+                    title={'Yup'}
+                    text={'Set Time'}
+                    onPress={this.closeModal.bind(this, false)}
+                />
+
+              </View>
+            </View>
+          </Modal>
+          <TouchableOpacity onPress={() => {
+            this.setModalVisible(true)
+          }}>
+            <Text style={{ fontSize: 23 }}>Pick a time</Text>
+          </TouchableOpacity>
+
           <TextInput
             style={styles.input}
             placeholder='Location'

@@ -102,18 +102,23 @@ const styles = StyleSheet.create({
   bottombar: {
     flex: 1,
     backgroundColor: '#f7f7f7',
-    height: 25,
+    height: 70,
     borderTopWidth: 0.5,
     borderColor: '#a5c0df',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
     // borderWidth: 1,
     // borderRadius: 10,
     // borderColor: '#a5c0df',
   },
   bottombaritem: {
+    marginTop: 10,
     flex: 0.2,
-    alignItems: 'center'
+    alignItems: 'center',
   }
 });
 

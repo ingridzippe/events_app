@@ -14,7 +14,8 @@ const domain = 'https://something-horizons.herokuapp.com';
 
 class MessagesScreen extends React.Component {
   static navigationOptions = {
-    title: 'Feed' //you put the title you want to be displayed here
+    title: 'Prototype', //you put the title you want to be displayed here
+    headerLeft: null
   };
   constructor(props) {
     super(props);
