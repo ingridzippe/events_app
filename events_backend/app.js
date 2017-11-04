@@ -54,6 +54,11 @@ passport.deserializeUser((user, done) => done(null, user));
 // Initialize http server
 var app = express();
 
+var cookieSession = require('cookie-session');
+app.use(cookieSession({
+  keys: ['my super secret key']
+}));
+
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
 

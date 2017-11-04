@@ -7,6 +7,8 @@ import RegisterScreen from './screens/RegisterScreen';
 // import SaveScreen from './screens/SaveScreen';
 // import UsersScreen from './screens/UsersScreen';
 import CreateEventScreen from './screens/CreateEventScreen';
+import SearchScreen from './screens/SearchScreen';
+import UpdateScreen from './screens/UpdateScreen';
 import MyProfileScreen from './screens/MyProfileScreen';
 
 // const domain = "https://something-horizons.herokuapp.com";
@@ -36,9 +38,12 @@ export default StackNavigator({
   // Users: {
   //   screen: UsersScreen,
   // },
-  // Save: {
-  //   screen: SaveScreen,
-  // },
+  Search: {
+    screen: SearchScreen,
+  },
+  Update: {
+    screen: UpdateScreen,
+  },
   Create: {
     screen: CreateEventScreen,
   },
@@ -46,6 +51,6 @@ export default StackNavigator({
     screen: MyProfileScreen,
   },
 }, {
-  initialRouteName: 'Messages',
+  initialRouteName: 'Login',
   headerMode: 'screen'
 });

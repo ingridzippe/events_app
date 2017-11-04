@@ -36,8 +36,8 @@ const styles = StyleSheet.create({
   textBig: {
     fontSize: 30,
     textAlign: 'center',
-    margin: 15,
-    marginTop: -20,
+    margin: 25,
+    marginTop: -50,
     fontWeight: '600',
     fontFamily: 'AvenirNext-Regular'
   },
@@ -102,18 +102,23 @@ const styles = StyleSheet.create({
   bottombar: {
     flex: 1,
     backgroundColor: '#f7f7f7',
-    height: 25,
+    height: 60,
     borderTopWidth: 0.5,
     borderColor: '#a5c0df',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
     // borderWidth: 1,
     // borderRadius: 10,
     // borderColor: '#a5c0df',
   },
   bottombaritem: {
+    marginTop: 14.5,
     flex: 0.2,
-    alignItems: 'center'
+    alignItems: 'center',
   }
 });
 

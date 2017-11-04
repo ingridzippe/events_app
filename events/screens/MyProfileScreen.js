@@ -15,7 +15,8 @@ const domain = 'https://something-horizons.herokuapp.com';
 
 class MyProfileScreen extends React.Component {
   static navigationOptions = {
-    title: 'MyProfile' //you put the title you want to be displayed here
+    title: 'Ventful', //you put the title you want to be displayed here
+    headerLeft: null
   };
   constructor(props) {
     super(props);

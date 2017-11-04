@@ -14,7 +14,8 @@ const domain = 'https://something-horizons.herokuapp.com';
 
 class MessagesScreen extends React.Component {
   static navigationOptions = {
-    title: 'Feed' //you put the title you want to be displayed here
+    title: 'Ventful', //you put the title you want to be displayed here
+    headerLeft: null
   };
   constructor(props) {
     super(props);
@@ -22,7 +23,7 @@ class MessagesScreen extends React.Component {
     this.state = {
       dataSource: ds.cloneWithRows([])
     };
-    fetch(`${domain}/events`)
+    fetch('http://localhost:3000/events')
     .then((response) => response.json())
     .then((responseJson) => {
         console.log('responseJson', responseJson);
@@ -152,21 +153,21 @@ class MessagesScreen extends React.Component {
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: '#fff' }}>
-        <TouchableOpacity
+        {/* <TouchableOpacity
             style={[styles.button, styles.buttonBlue]}
             onPress={() => { this.props.navigation.navigate('Create'); }}
         >
             <Text style={styles.buttonLabel}>Create Event</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         {/* <ListView
           dataSource={this.state.dataSource}
           renderRow={(rowData) => */}
-            <TouchableOpacity
+            {/* <TouchableOpacity
                 style={[styles.button, styles.buttonBlue]}
                 // onPress={this.sendLocation.bind(this)}
             >
                 <Text style={styles.buttonLabel}>New Pin</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           {/* }
         /> */}
         <ListView
