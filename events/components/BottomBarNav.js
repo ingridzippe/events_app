@@ -23,7 +23,7 @@ class BottomBarNav extends React.Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.bottombaritem]}
-            onPress={() => { console.log('in to', this.props.navigation) }}
+            onPress={() => { console.log('in to', this.props.navigation.navigate('Search')) }}
           >
             <Icon name='search' style={{ fontSize: 22, marginTop: 4, color: '#333333' }} />
           </TouchableOpacity>
@@ -35,7 +35,7 @@ class BottomBarNav extends React.Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.bottombaritem]}
-            onPress={() => { this.props.navigation.navigate('Messages'); }}
+            onPress={() => { this.props.navigation.navigate('Update'); }}
           >
             <Icon name='heart-o' style={{ fontSize: 25, marginTop: 2, color: '#333333' }} />
           </TouchableOpacity>

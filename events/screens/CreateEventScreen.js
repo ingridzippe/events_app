@@ -29,7 +29,7 @@ var defaultProps = {
 
 class CreateEventScreen extends React.Component {
   static navigationOptions = {
-    title: 'Prototype',
+    title: 'Ventful',
     headerLeft: null
   };
   constructor(props) {
@@ -52,8 +52,7 @@ class CreateEventScreen extends React.Component {
     this.setState({modalVisible: false});
   }
   postCreateEvent() {
-  console.log('creating event');
-  return fetch(`${domain}/create`, {
+  fetch('http://localhost:3000/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -100,12 +99,12 @@ class CreateEventScreen extends React.Component {
     return (
         <View style={styles.container}>
           <Text style={styles.textBig}>Create an event.</Text>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={[styles.button, styles.buttonBlue]}
             onPress={() => { this.uploadImage(); }}
           >
             <Text style={styles.buttonLabel}>Upload an Image</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           {/* <DatePickerIOS
             date={this.state.date}
             mode="time"
@@ -132,12 +131,17 @@ class CreateEventScreen extends React.Component {
               </View>
             </View>
           </Modal>
-          <TouchableOpacity onPress={() => {
+          {/* <TouchableOpacity onPress={() => {
             this.setModalVisible(true)
           }}>
             <Text style={{ fontSize: 23 }}>Pick a time</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
+          <TextInput
+            style={styles.input}
+            placeholder='When'
+            onChangeText={(text) => this.setState({ eventDate: text })}
+          />
           <TextInput
             style={styles.input}
             placeholder='Location'

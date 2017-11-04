@@ -36,8 +36,8 @@ const styles = StyleSheet.create({
   textBig: {
     fontSize: 30,
     textAlign: 'center',
-    margin: 15,
-    marginTop: -20,
+    margin: 25,
+    marginTop: -50,
     fontWeight: '600',
     fontFamily: 'AvenirNext-Regular'
   },
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   bottombar: {
     flex: 1,
     backgroundColor: '#f7f7f7',
-    height: 70,
+    height: 60,
     borderTopWidth: 0.5,
     borderColor: '#a5c0df',
     flexDirection: 'row',
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     // borderColor: '#a5c0df',
   },
   bottombaritem: {
-    marginTop: 10,
+    marginTop: 14.5,
     flex: 0.2,
     alignItems: 'center',
   }

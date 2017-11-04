@@ -1,19 +1,26 @@
 "use strict";
 
+var express = require('express');
 const router = require('express').Router();
 var models = require('../models/models');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 const processor = require('../processor');
 
+
 router.post('/create', function(req, res) {
+    console.log('gets insiide create route')
+    console.log('req.user', req.user);
+    console.log('req', req);
     var e = new models.Event({
+      user: req.user,
       eventDate: req.body.eventDate,
       eventLocation: req.body.eventLocation,
       eventDescription: req.body.eventDescription,
       eventLatitude: req.body.eventLatitude,
       eventLongitude: req.body.eventLongitude
     });
+    console.log('e', e)
     e.save(function(err, event) {
       if (err) {
         res.status(500);
