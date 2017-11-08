@@ -24,6 +24,7 @@ class LoginScreen extends React.Component {
  constructor(props) {
    super(props);
    this.state = {
+     user: '',
      username: '',
      password: ''
    };
@@ -73,7 +74,7 @@ class LoginScreen extends React.Component {
  postLogin() {
  console.log('signing in');
  console.log('domain', domain);
- return fetch(`${domain}/login`, {
+ return fetch('http://localhost:3000/login', {
    method: 'POST',
    headers: {
      'Content-Type': 'application/json'

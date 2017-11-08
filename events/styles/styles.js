@@ -23,6 +23,20 @@ const styles = StyleSheet.create({
     width: 360,
     marginLeft: 30
   },
+  smallButton: {
+    marginTop: 10,
+    marginLeft: 20,
+    marginRight: 20,
+    borderRadius: 20,
+    textAlign: 'center',
+    fontSize: 15,
+    color: 'black',
+    height: 40,
+    padding: 30,
+    margin: 30,
+    fontFamily: 'AvenirNext-Regular',
+    borderRadius: 20
+  },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
@@ -88,12 +102,16 @@ const styles = StyleSheet.create({
   buttonGreen: {
     backgroundColor: '#2ECC40'
   },
+  grey: {
+    backgroundColor: '#f7f7f7'
+  },
   buttonLabel: {
     textAlign: 'center',
     fontSize: 20,
     color: 'white',
     padding: 10,
-    fontFamily: 'AvenirNext-Regular'
+    fontFamily: 'AvenirNext-Regular',
+    borderRadius: 5
   },
   or: {
     fontFamily: 'AvenirNext-Regular',

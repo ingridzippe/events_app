@@ -10,7 +10,6 @@ const processor = require('../processor');
 
 router.post('/create', function(req, res) {
     console.log('gets insiide create route')
-    console.log('req.user', req.user);
     console.log('req', req);
     var e = new models.Event({
       user: req.user,
@@ -43,8 +42,21 @@ router.post('/create', function(req, res) {
 
 router.get('/events', function(req, res, next) {
   // Gets all users
-  console.log('GETS HERE')
   models.Event.find({}, function(err, events) {
+    if (events) {
+      console.log(events);
+      res.json({success: true, events: events});
+    } else {
+      res.json({success: false, error: err})
+    }
+  })
+});
+
+router.get('/myevents', function(req, res, next) {
+  // Gets all users
+  console.log('my events route here')
+  console.log('my events req.user', req.user)
+  models.Event.find({user: req.user}, function(err, events) {
     if (events) {
       console.log(events);
       res.json({success: true, events: events});

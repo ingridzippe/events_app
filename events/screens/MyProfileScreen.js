@@ -8,6 +8,7 @@ import {
 import BottomBarNav from '../components/BottomBarNav';
 // import BottomBar from '../components/BottomBar';
 import styles from '../styles/styles';
+import Icon from 'react-native-vector-icons/FontAwesome';
 // import { StackNavigator } from 'react-navigation';
 // import { ImagePicker, Location, Permissions, MapView } from 'expo';
 
@@ -24,7 +25,7 @@ class MyProfileScreen extends React.Component {
     this.state = {
       dataSource: ds.cloneWithRows([])
     };
-    fetch(`${domain}/events`)
+    fetch('http://localhost:3000/myevents')
     .then((response) => response.json())
     .then((responseJson) => {
         console.log('responseJson', responseJson);
@@ -44,12 +45,51 @@ class MyProfileScreen extends React.Component {
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: '#fff' }}>
-        <TouchableOpacity
-            style={[styles.button, styles.buttonBlue]}
-            onPress={() => { this.props.navigation.navigate('Create'); }}
-        >
-            <Text style={styles.buttonLabel}>User headshot</Text>
-        </TouchableOpacity>
+        <View style={{ flexDirection: 'row' }}>
+          <View style={{
+            borderWidth: 0.5,
+            borderRadius: 50,
+            borderColor: '#696969',
+            width: 75,
+            height: 75,
+          }}></View>
+          <View style={{ height: 120, flex: 1, flexDirection: 'column', justifyContent: 'space-between' }}>
+              <View style={{flex: 1, flexDirection: 'column', width: 200}}>
+                  <View style={{ flex: 1, width: 200, flexDirection: 'row', justifyContent: 'space-between' }}>
+                      <Text>1,000</Text>
+                      <Text>380</Text>
+                      <Text>400</Text>
+                  </View>
+                  <View style={{ flex: 1, width: 200, flexDirection: 'row', justifyContent: 'space-between' }}>
+                      <Text>events</Text>
+                      <Text>followers</Text>
+                      <Text>following</Text>
+                  </View>
+              </View>
+              <View style={{ flex: 1, width: 200, flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <TouchableOpacity>
+                    <Text style={{
+                      textAlign: 'center',
+                      overflow: 'hidden',
+                      backgroundColor: '#fff',
+                      height: 29,
+                      width: 200,
+                      padding: 5,
+                      margin: 6,
+                      borderWidth: 0.8,
+                      fontFamily: 'AvenirNext-Regular',
+                      borderRadius: 7,
+                      borderColor: '#A9A9A9',
+                    }}>Edit Profile</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity >
+                    <Icon
+                      name='cog'
+                      style={{ marginTop: 5, marginLeft: 3, fontSize: 30, color: '#808080' }} />
+                  </TouchableOpacity>
+              </View>
+          </View>
+        </View>
         {/* <ListView
           dataSource={this.state.dataSource}
           renderRow={(rowData) => */}

@@ -1,11 +1,9 @@
 var express = require('express');
-var passport = require('passport');
-var bodyParser = require('body-parser');
+var app = express();
 var LocalStrategy = require('passport-local');
 // var GoogleStrategy = require('passport-google-oauth20');
 //var google = require('./config');
 var util = require('util');
-var session = require('cookie-session');
 var models = require('./models/models');
 var { User } = require('./models/models');
 var auth = require('./routes/auth');
@@ -18,11 +16,19 @@ var routes = require('./routes/routes');
 //   avatar: profile.image.url,
 // });
 
-// Serialize user into the sessions
-passport.serializeUser((user, done) => done(null, user));
 
-// Deserialize user from the sessions
-passport.deserializeUser((user, done) => done(null, user));
+// var session = require('express-session');
+// app.use(session({
+//   secret: [ process.env.FACEBOOK_APP_SECRET || 'fake secret' ]
+// }));
+
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({extended: true}));
+
+var cookieSession = require('cookie-session');
+app.use(cookieSession({
+  keys: ['my super secret key']
+}));
 
 
 // passport.use(new GoogleStrategy({
@@ -51,27 +57,8 @@ passport.deserializeUser((user, done) => done(null, user));
 //   }
 // ));
 
-// Initialize http server
-var app = express();
-
-var cookieSession = require('cookie-session');
-app.use(cookieSession({
-  keys: ['my super secret key']
-}));
-
-var bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({extended: true}));
-
-app.use(session({
-  keys: [ process.env.SECRET || 'fake secret' ]
-}));
-
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: true }));
-
-// Initialize Passport
-app.use(passport.initialize());
-app.use(passport.session());
 
 // app.get('/auth/google', passport.authenticate('google', { scope: ['profile'] }));
 // app.use(auth(passport));
@@ -81,46 +68,9 @@ app.use(passport.session());
 //   passport.authenticate('google', { failureRedirect: '/login' }),
 //   (req, res) => res.redirect('/users/' + req.user));
 
-var FacebookStrategy = require('passport-facebook');
-passport.use(new FacebookStrategy({
-  clientID: process.env.FACEBOOK_APP_ID,
-  clientSecret: process.env.FACEBOOK_APP_SECRET,
-  callbackURL: 'http://localhost:3000/fb/login/callback'
-},
-function(accessToken, refreshToken, profile, done) {
-  var u;
-  models.User.findOne({fbId: profile.id}, function(err, user) {
-    if (err) { return done(err); }
-    if (!user) {
-        u = new models.User({
-        displayName: profile.displayName,
-        fbId: profile.id
-      });
-      u.save(function(err, user) {
-        console.log('saved user')
-        if (err) { return; }
-      })
-      done(null, {_id: u._id, token: accessToken, displayName: profile.displayName, fbId: profile.id});
-    } else {
-      console.log('IMAG?', profile)
-      done(null, {_id: user._id, token: accessToken, displayName: profile.displayName, fbId: profile.id});
-    }
-  });
-}));
 
-app.get('/golden', function(req, res) {
-  res.send('its gold')
-})
-app.get('/fb/login', passport.authenticate('facebook'));
-app.get('/fb/login/callback',
-  passport.authenticate('facebook', { failureRedirect: '/fb/login' }),
-  // Redirect user back to the mobile app using Linking with a custom protocol OAuthLogin
-  (req, res) => res.redirect('OAuthLogin://login?user=' + JSON.stringify(req.user)));
-
-// app.get('/fb/login/callback', passport.authenticate('facebook', {
-//   successRedirect: '/',
-//   failureRedirect: '/fail'
-// }));
+var passport = require('passport')
+  , FacebookStrategy = require('passport-facebook').Strategy;
 
 // passport strategy
 passport.use(new LocalStrategy(function(username, password, done) {
@@ -140,11 +90,80 @@ passport.use(new LocalStrategy(function(username, password, done) {
       done(null, false, { message: 'Incorrect username/password combination.' });
       return;
     }
-
     // auth has has succeeded
     done(null, user);
   });
 }));
+
+// var FacebookStrategy = require('passport-facebook');
+
+passport.use(new FacebookStrategy({
+  clientID: process.env.FACEBOOK_APP_ID,
+  clientSecret: process.env.FACEBOOK_APP_SECRET,
+  callbackURL: 'http://localhost:3000/fb/login/callback',
+  // profileFields: ['_id', 'token', 'displayName', 'fbId'],
+},
+function(accessToken, refreshToken, profile, done) {
+  var u;
+  models.User.findOne({fbId: profile.id}, function(err, user) {
+    if (err) { return done(err); }
+    if (!user) {
+        u = new models.User({
+        displayName: profile.displayName,
+        fbId: profile.id
+      });
+      u.save(function(err, user) {
+        console.log('saved user')
+        if (err) { return; }
+      })
+      done(null, {_id: u._id, token: accessToken, displayName: profile.displayName, fbId: profile.id});
+    } else {
+      console.log('IMAG?', profile)
+      console.log('USER FOUND', user);
+      done(null, user);
+    }
+  });
+}));
+
+
+// Serialize user into the sessions
+passport.serializeUser((user, done) => done(null, user));
+
+// Deserialize user from the sessions
+passport.deserializeUser((user, done) => done(null, user));
+
+
+// Initialize Passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+// app.get('/fb/login', passport.authenticate('facebook'));
+// app.get('/fb/login/callback',
+//   passport.authenticate('facebook', { failureRedirect: '/fb/login' }),
+//   // Redirect user back to the mobile app using Linking with a custom protocol OAuthLogin
+//   (req, res) => res.redirect('OAuthLogin://login?user=' + JSON.stringify(req.user)));
+//
+// app.get('/fb/login/callback', passport.authenticate('facebook', {
+//   successRedirect: '/',
+//   failureRedirect: '/fail'
+// }));
+
+
+app.get('/fb/login', passport.authenticate('facebook'));
+
+app.get('/fb/login/callback', passport.authenticate('facebook', {
+  successRedirect: '/login/success/fb',
+  failureRedirect: '/login/failure',
+}),
+(req, res) => {
+    console.log('REQ.USER', req.user);
+    res.redirect('OAuthLogin://login?user=' + JSON.stringify(req.user));
+});
+
+app.get('/login/success/fb', function(req, res) {
+  res.redirect('OAuthLogin://login?user=' + JSON.stringify(req.user));
+});
 
 app.use('/', auth(passport));
 app.use('/', routes);

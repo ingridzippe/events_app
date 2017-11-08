@@ -11,15 +11,21 @@ module.exports = function (passport) {
   router.use(bodyParser.json());
   router.use(bodyParser.urlencoded({ extended: true }));
 
-  router.get('/seahorse', function(req, res) {
-    res.send('yo gotti')
-  })
 
   /* Authentication routes */
   router.get('/login/failure', function(req, res) {
     res.status(401).json({
       success: false,
       error: req.flash('error')[0]
+    });
+  });
+
+  router.get('/login/success', function(req, res) {
+    var user = _.pick(req.user, 'username', '_id');
+    console.log(req.user)
+    res.json({
+      success: true,
+      user: user
     });
   });
 
@@ -54,30 +60,53 @@ module.exports = function (passport) {
     });
   });
 
-  router.get('/fb/login', function(req, res) {
-    res.send('it hit the fb login route');
-  })
+  // router.get('/fb/login', function(req, res) {
+  //   res.send('it hit the fb login route');
+  // })
   // router.get('/fb/login', passport.authenticate('facebook'));
 
-  router.get('/fb/login/callback', passport.authenticate('facebook', {
-    successRedirect: '/',
-    failureRedirect: '/fail'
-  }));
+
+// COMMENT BACK IN
+  // router.get('/fb/login', passport.authenticate('facebook'));
+  //
+  // // router.get('/fb/login/callback',
+  // //   passport.authenticate('facebook', { failureRedirect: '/fb/login' }),
+  // //   // Redirect user back to the mobile app using Linking with a custom protocol OAuthLogin
+  // //   (req, res) => {
+  // //       console.log('REQ.USER', req.user);
+  // //       res.redirect('OAuthLogin://login?user=' + JSON.stringify(req.user));
+  // //   });
+  //
+  // router.get('/fb/login/callback', passport.authenticate('facebook', {
+  //   successRedirect: '/login/success/fb',
+  //   failureRedirect: '/login/failure',
+  // }),
+  // (req, res) => {
+  //     console.log('REQ.USER', req.user);
+  //     res.redirect('OAuthLogin://login?user=' + JSON.stringify(req.user));
+  // });
+
+  // router.get('/login/success/fb', function(req, res) {
+  //   res.redirect('OAuthLogin://login?user=' + JSON.stringify(req.user));
+  // });
+
+// COMMENT BACK IN
+
+
+  // router.get('/fb/login/callback', passport.authenticate('facebook', {
+  //   successRedirect: '/',
+  //   failureRedirect: '/fail'
+  // }));
+
+  router.get('/fail', function(req, res) {
+    res.status(401).send('Failed to login with Facebook.');
+  });
 
   router.get('/logout', function(req, res) {
     req.logout();
     res.json({
       success: true,
       message: 'logged out.'
-    });
-  });
-
-  router.get('/login/success', function(req, res) {
-    var user = _.pick(req.user, 'username', '_id');
-    console.log(req.user)
-    res.json({
-      success: true,
-      user: user
     });
   });
 
@@ -93,7 +122,7 @@ module.exports = function (passport) {
   //   }
   // });
   router.get('/', function(req,res,next){
-    res.send('hi there!')
+    res.json('hi there!')
   });
   router.use(function(req,res,next){
     next()
